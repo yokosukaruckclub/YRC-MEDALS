@@ -1,201 +1,246 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Yokosuka Ruck Club | Medal Verification</title>
+  <title>Yokosuka Ruck Club Medal Verification</title>
 
-<style>
-  * {
-    box-sizing: border-box;
-  }
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #111;
+      color: #fff;
+      font-family: Arial, Helvetica, sans-serif;
+      text-align: center;
+    }
 
-  body {
-    margin: 0;
-    min-height: 100vh;
-    background:
-      radial-gradient(circle at top, #26313b 0%, #11161b 45%, #080b0e 100%);
-    font-family: Arial, Helvetica, sans-serif;
-    color: #ffffff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 25px 15px;
-  }
+    .container {
+      max-width: 600px;
+      margin: 30px auto;
+      background: #1c1c1c;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
 
-  .card {
-    width: 100%;
-    max-width: 600px;
-    background: rgba(20, 25, 30, 0.96);
-    border: 1px solid #59616a;
-    border-radius: 18px;
-    overflow: hidden;
-    box-shadow: 0 15px 50px rgba(0,0,0,.55);
-  }
+    .header {
+      background: #000;
+      padding: 25px 20px;
+      border-bottom: 3px solid #b00020;
+    }
 
-  .header {
-    text-align: center;
-    padding: 32px 20px 22px;
-    background: linear-gradient(180deg, #1c252d, #11161b);
-  }
+    .club {
+      font-size: 28px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
 
-  .club {
-    font-size: 14px;
-    letter-spacing: 3px;
-    color: #d6d6d6;
-    font-weight: bold;
-  }
-
-  .verified {
-    margin-top: 16px;
-    font-size: 28px;
-    font-weight: 800;
-    letter-spacing: 1px;
-  }
-
-  .check {
-    color: #42d978;
-  }
-
-  .body {
-    padding: 30px 25px 35px;
-    text-align: center;
-  }
-
-  .name {
-    font-size: 32px;
-    font-weight: 800;
-    margin-bottom: 8px;
-  }
-
-  .event {
-    font-size: 18px;
-    color: #d0d0d0;
-    margin-bottom: 25px;
-  }
-
-  .line {
-    height: 1px;
-    background: #444b52;
-    margin: 20px 0 25px;
-  }
-
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
-  }
-
-  .stat {
-    background: #252c32;
-    border-radius: 10px;
-    padding: 17px 10px;
-  }
-
-  .label {
-    font-size: 12px;
-    color: #aeb5bb;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 7px;
-  }
-
-  .value {
-    font-size: 20px;
-    font-weight: bold;
-  }
-
-  .date {
-    margin-top: 18px;
-    background: #252c32;
-    border-radius: 10px;
-    padding: 17px;
-  }
-
-  .medal {
-    margin-top: 25px;
-    padding: 14px;
-    border: 1px solid #626970;
-    border-radius: 10px;
-    background: #171c21;
-  }
-
-  .medal-label {
-    font-size: 11px;
-    color: #999;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
-
-  .medal-id {
-    margin-top: 6px;
-    font-size: 16px;
-    font-weight: bold;
-    word-break: break-word;
-  }
-
-  .footer {
-    text-align: center;
-    padding: 18px;
-    font-size: 12px;
-    color: #888f95;
-    background: #0d1115;
-  }
-
-  .error {
-    text-align: center;
-    padding: 45px 25px;
-  }
-
-  .error h1 {
-    font-size: 25px;
-  }
-
-  @media (max-width: 450px) {
     .verified {
-      font-size: 23px;
+      color: #4caf50;
+      font-size: 22px;
+      font-weight: bold;
+      margin-top: 8px;
+    }
+
+    .content {
+      padding: 30px 25px;
     }
 
     .name {
-      font-size: 27px;
+      font-size: 30px;
+      font-weight: bold;
+      margin-bottom: 10px;
     }
 
-    .stats {
-      grid-template-columns: 1fr;
+    .event {
+      font-size: 20px;
+      color: #ccc;
+      margin-bottom: 25px;
     }
-  }
-</style>
+
+    .details {
+      text-align: left;
+      background: #292929;
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 10px 0;
+      border-bottom: 1px solid #444;
+    }
+
+    .row:last-child {
+      border-bottom: none;
+    }
+
+    .label {
+      color: #aaa;
+    }
+
+    .value {
+      font-weight: bold;
+      text-align: right;
+    }
+
+    .medal-id {
+      margin-top: 25px;
+      padding: 15px;
+      background: #000;
+      border-radius: 8px;
+      font-family: monospace;
+      font-size: 17px;
+      word-break: break-all;
+    }
+
+    .footer {
+      padding: 20px;
+      color: #888;
+      font-size: 13px;
+      border-top: 1px solid #333;
+    }
+
+    .error {
+      padding: 40px 25px;
+    }
+
+    .error h1 {
+      color: #e53935;
+    }
+
+    .loading {
+      padding: 50px 20px;
+      color: #ccc;
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="card" id="verificationCard"></div>
+  <div class="container">
+    <div id="verificationCard">
+      <div class="loading">
+        Verifying YRC finisher...
+      </div>
+    </div>
+  </div>
 
 <script>
 
-const finishers = {
-
-  "YRC-10K-2026-0006": {
-    name: "HOLDEN FABER",
-    event: "YRC 10K Ruck",
-    distance: "10.50 KM",
-    weight: "20 LB",
-    time: "01:30:00",
-    date: "October 6, 2026"
-  }
-
-};
-
-
-function showVerification() {
+async function showVerification() {
 
   const params = new URLSearchParams(window.location.search);
   const medalId = params.get("id");
 
   const card = document.getElementById("verificationCard");
 
-  if (!medalId || !finishers[medalId]) {
+  if (!medalId) {
+    showNotFound(card);
+    return;
+  }
+
+  try {
+
+    /*
+      data.json is stored in the same GitHub repository
+      as this page.
+
+      This avoids the Google Sheets CORS problem we were
+      fighting earlier.
+    */
+
+    const response = await fetch(
+      "./data.json?v=" + Date.now(),
+      {
+        cache: "no-store"
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Unable to load verification data.");
+    }
+
+    const finishers = await response.json();
+
+    const finisher = finishers.find(function(record) {
+      return String(record.medalId).trim().toUpperCase() ===
+             String(medalId).trim().toUpperCase();
+    });
+
+    if (!finisher) {
+      showNotFound(card);
+      return;
+    }
+
+    card.innerHTML = `
+      <div class="header">
+        <div class="club">YOKOSUKA RUCK CLUB</div>
+        <div class="verified">✓ VERIFIED FINISHER</div>
+      </div>
+
+      <div class="content">
+
+        <div class="name">
+          ${escapeHtml(finisher.name)}
+        </div>
+
+        <div class="event">
+          ${escapeHtml(finisher.event)}
+        </div>
+
+        <div class="details">
+
+          <div class="row">
+            <span class="label">Distance</span>
+            <span class="value">
+              ${escapeHtml(finisher.distance)}
+            </span>
+          </div>
+
+          <div class="row">
+            <span class="label">Ruck Weight</span>
+            <span class="value">
+              ${escapeHtml(finisher.weight)}
+            </span>
+          </div>
+
+          <div class="row">
+            <span class="label">Finish Time</span>
+            <span class="value">
+              ${escapeHtml(finisher.time)}
+            </span>
+          </div>
+
+          <div class="row">
+            <span class="label">Completion Date</span>
+            <span class="value">
+              ${escapeHtml(finisher.date)}
+            </span>
+          </div>
+
+        </div>
+
+        <div class="medal-id">
+          MEDAL ID<br>
+          <strong>${escapeHtml(finisher.medalId)}</strong>
+        </div>
+
+      </div>
+
+      <div class="footer">
+        This medal has been verified by<br>
+        <strong>Yokosuka Ruck Club</strong>
+      </div>
+    `;
+
+  } catch (error) {
+
+    console.error(error);
 
     card.innerHTML = `
       <div class="header">
@@ -203,97 +248,53 @@ function showVerification() {
       </div>
 
       <div class="error">
-        <h1>❌ Medal Not Verified</h1>
+        <h1>⚠ Verification Error</h1>
         <p>
-          The medal ID could not be verified.
+          Unable to connect to the YRC verification database.
+        </p>
+        <p style="font-size:13px;color:#888;">
+          Please try again in a moment.
         </p>
       </div>
-
-      <div class="footer">
-        Yokosuka Ruck Club
-      </div>
     `;
-
-    return;
   }
+}
 
-  const finisher = finishers[medalId];
+
+function showNotFound(card) {
 
   card.innerHTML = `
-
     <div class="header">
-
-      <div class="club">
-        YOKOSUKA RUCK CLUB
-      </div>
-
-      <div class="verified">
-        <span class="check">✓</span>
-        VERIFIED FINISHER
-      </div>
-
+      <div class="club">YOKOSUKA RUCK CLUB</div>
     </div>
 
+    <div class="error">
+      <h1>❌ Medal Not Verified</h1>
 
-    <div class="body">
+      <p>
+        The medal ID could not be verified.
+      </p>
 
-      <div class="name">
-        ${finisher.name}
-      </div>
-
-      <div class="event">
-        ${finisher.event}
-      </div>
-
-      <div class="line"></div>
-
-
-      <div class="stats">
-
-        <div class="stat">
-          <div class="label">Distance</div>
-          <div class="value">${finisher.distance}</div>
-        </div>
-
-        <div class="stat">
-          <div class="label">Ruck Weight</div>
-          <div class="value">${finisher.weight}</div>
-        </div>
-
-        <div class="stat">
-          <div class="label">Finish Time</div>
-          <div class="value">${finisher.time}</div>
-        </div>
-
-        <div class="stat">
-          <div class="label">Completion Date</div>
-          <div class="value">${finisher.date}</div>
-        </div>
-
-      </div>
-
-
-      <div class="medal">
-
-        <div class="medal-label">
-          Medal ID
-        </div>
-
-        <div class="medal-id">
-          ${medalId}
-        </div>
-
-      </div>
-
+      <p style="font-size:13px;color:#888;">
+        Please check the medal ID and try again.
+      </p>
     </div>
-
 
     <div class="footer">
-      This digital medal has been verified by<br>
-      <strong>Yokosuka Ruck Club</strong>
+      Yokosuka Ruck Club
     </div>
-
   `;
+}
+
+
+function escapeHtml(value) {
+
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
 
 
