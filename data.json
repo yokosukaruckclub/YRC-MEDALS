@@ -5,8 +5,8 @@
     "event": "YRC 10K Ruck",
     "distance": "10.24 KM",
     "weight": "20 LB",
-    "time": "Sat Dec 30 1899 01:19:00 GMT+0900 (Japan Standard Time)",
-    "date": "Tue Oct 06 2026 00:00:00 GMT+0900 (Japan Standard Time)"
+    "time": "1:19:00",
+    "date": "October 6, 2026"
   },
   {
     "medalId": "YRC-10K-2026-0002",
@@ -14,8 +14,8 @@
     "event": "YRC 10K Ruck",
     "distance": "10.24 KM",
     "weight": "38 LB",
-    "time": "Sat Dec 30 1899 01:30:00 GMT+0900 (Japan Standard Time)",
-    "date": "Tue Oct 06 2026 00:00:00 GMT+0900 (Japan Standard Time)"
+    "time": "1:30:00",
+    "date": "October 6, 2026"
   },
   {
     "medalId": "YRC-10K-2026-0003",
@@ -23,8 +23,8 @@
     "event": "YRC 10K Ruck",
     "distance": "10.24 KM",
     "weight": "20 LB",
-    "time": "Sat Dec 30 1899 01:50:00 GMT+0900 (Japan Standard Time)",
-    "date": "Tue Oct 06 2026 00:00:00 GMT+0900 (Japan Standard Time)"
+    "time": "1:50:00",
+    "date": "October 6, 2026"
   },
   {
     "medalId": "YRC-10K-2026-0004",
@@ -32,8 +32,8 @@
     "event": "YRC 10K Ruck",
     "distance": "10.24 KM",
     "weight": "20 LB",
-    "time": "Sat Dec 30 1899 01:30:00 GMT+0900 (Japan Standard Time)",
-    "date": "Tue Oct 06 2026 00:00:00 GMT+0900 (Japan Standard Time)"
+    "time": "1:30:00",
+    "date": "October 6, 2026"
   },
   {
     "medalId": "YRC-10K-2026-0005",
@@ -41,8 +41,8 @@
     "event": "YRC 10K Ruck",
     "distance": "10.50 KM",
     "weight": "30 LB",
-    "time": "Sat Dec 30 1899 01:30:00 GMT+0900 (Japan Standard Time)",
-    "date": "Tue Oct 06 2026 00:00:00 GMT+0900 (Japan Standard Time)"
+    "time": "1:30:00",
+    "date": "October 6, 2026"
   },
   {
     "medalId": "YRC-10K-2026-0006",
@@ -50,8 +50,8 @@
     "event": "YRC 10K Ruck",
     "distance": "10.50 KM",
     "weight": "20 LB",
-    "time": "Sat Dec 30 1899 01:30:00 GMT+0900 (Japan Standard Time)",
-    "date": "Tue Oct 06 2026 00:00:00 GMT+0900 (Japan Standard Time)"
+    "time": "1:30:00",
+    "date": "October 6, 2026"
   },
   {
     "medalId": "YRC-10K-2026-0007",
@@ -59,7 +59,7 @@
     "event": "YRC 10K Ruck",
     "distance": "10.24 KM",
     "weight": "20 LB",
-    "time": "Sat Dec 30 1899 01:30:00 GMT+0900 (Japan Standard Time)",
-    "date": "Tue Oct 06 2026 00:00:00 GMT+0900 (Japan Standard Time)"
+    "time": "1:30:00",
+    "date": "October 6, 2026"
   }
 ]
