@@ -49,6 +49,7 @@ body {
 .name {
   font-size: 32px;
   font-weight: bold;
+  
   margin-bottom: 8px;
 }
 
@@ -125,376 +126,174 @@ body {
 <script>
 
 
-const CSV_URL =
-"https://docs.google.com/spreadsheets/d/e/2PACX-1vSiR8BrRCuLcHm5x3PLy4_aSIFSB6rfgx53eTJylBvGlJkTqRTYzO5Qoc7MIPIcg2LBe_kDS3Pxyt0u/pub?gid=1167424338&single=true&output=csv";
+const SHEET_ID =
+  "1X4VSwR69uf9u9FGeP-QSiaID_XZ4GXyywq_KMbwM3vI";
 
-
-function parseCSV(text) {
-
-  const rows = [];
-  let row = [];
-  let cell = "";
-  let insideQuotes = false;
-
-  for (let i = 0; i < text.length; i++) {
-
-    const char = text[i];
-    const next = text[i + 1];
-
-    if (char === '"' && insideQuotes && next === '"') {
-
-      cell += '"';
-      i++;
-
-    }
-
-    else if (char === '"') {
-
-      insideQuotes = !insideQuotes;
-
-    }
-
-    else if (char === ',' && !insideQuotes) {
-
-      row.push(cell);
-      cell = "";
-
-    }
-
-    else if (
-      (char === '\n' || char === '\r') &&
-      !insideQuotes
-    ) {
-
-      if (char === '\r' && next === '\n') {
-        i++;
-      }
-
-      row.push(cell);
-      rows.push(row);
-
-      row = [];
-      cell = "";
-
-    }
-
-    else {
-
-      cell += char;
-
-    }
-  }
-
-
-  if (cell !== "" || row.length > 0) {
-
-    row.push(cell);
-    rows.push(row);
-
-  }
-
-
-  return rows;
-}
-
-
+const SHEET_GID = "1167424338";
 
 function escapeHTML(value) {
-
   return String(value ?? "")
-
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
-
 }
 
+function getMedalId() {
+  const params = new URLSearchParams(window.location.search);
+  return (params.get("id") || "").trim().toUpperCase();
+}
 
+window.yrcVerificationCallback = function(data) {
+  const medalId = getMedalId();
+  const card = document.getElementById("verificationCard");
 
-async function showVerification() {
+  if (!card) return;
 
-  const params =
-    new URLSearchParams(window.location.search);
-
-  const requestedID =
-    params.get("id");
-
-  const card =
-    document.getElementById("verificationCard");
-
-
-  if (!requestedID) {
-
+  if (!medalId) {
     card.innerHTML = `
-
-      <div class="club">
-        YOKOSUKA RUCK CLUB
-      </div>
-
-      <div class="verified">
-        <span style="color:#f87171;">✕</span>
-        MEDAL NOT VERIFIED
-      </div>
-
       <div class="error">
-        No Medal ID was provided.
+        No medal ID was provided.
       </div>
-
     `;
-
     return;
   }
 
-
   try {
+    const rows = data.table.rows || [];
 
-    /*
-      Add a timestamp to prevent the browser
-      from using an old cached CSV.
-    */
+    let match = null;
 
-    const csvUrl =
-      CSV_URL + "&cache=" + Date.now();
-
-
-    const response =
-      await fetch(csvUrl);
-
-
-    if (!response.ok) {
-
-      throw new Error(
-        "Unable to access verification data."
+    for (const row of rows) {
+      const cells = row.c || [];
+      const values = cells.map(cell =>
+        cell && cell.v !== undefined ? cell.v : ""
       );
 
+      if (
+        String(values[0] || "")
+          .trim()
+          .toUpperCase() === medalId
+      ) {
+        match = values;
+        break;
+      }
     }
 
-
-    const csv =
-      await response.text();
-
-
-    const rows =
-      parseCSV(csv);
-
-
-    if (rows.length < 2) {
-
-      throw new Error(
-        "No verification records found."
-      );
-
-    }
-
-
-    const headers =
-      rows[0].map(
-        h => h.trim().replace(/^\uFEFF/, "")
-      );
-
-
-    const records =
-      rows.slice(1).map(row => {
-
-        const record = {};
-
-        headers.forEach(
-          (header, index) => {
-
-            record[header] =
-              (row[index] || "").trim();
-
-          }
-        );
-
-        return record;
-
-      });
-
-
-    const finisher =
-      records.find(record => {
-
-        const medalID =
-          String(record.MEDAL_ID || "")
-            .trim()
-            .toUpperCase();
-
-        return medalID ===
-          requestedID.trim().toUpperCase();
-
-      });
-
-
-    if (!finisher) {
-
+    if (!match) {
       card.innerHTML = `
-
-        <div class="club">
-          YOKOSUKA RUCK CLUB
-        </div>
-
-        <div class="verified">
-
-          <span style="color:#f87171;">
-            ✕
-          </span>
-
-          MEDAL NOT VERIFIED
-
-        </div>
-
-
         <div class="error">
-
-          The medal ID could not be verified.
-
+          <div style="font-size:28px;font-weight:bold;margin-bottom:10px;">
+            MEDAL NOT FOUND
+          </div>
+          <div>
+            No verified YRC medal was found for:
+          </div>
+          <div style="font-weight:bold;margin-top:8px;">
+            ${escapeHTML(medalId)}
+          </div>
         </div>
-
-
-        <div class="medal-id">
-
-          MEDAL ID<br><br>
-
-          ${escapeHTML(requestedID)}
-
-        </div>
-
       `;
-
       return;
-
     }
 
+    const name = match[1] || "";
+    const event = match[2] || "";
+    const distance = match[3] || "";
+    const weight = match[4] || "";
+    const time = match[5] || "";
+    const date = match[6] || "";
 
     card.innerHTML = `
-
       <div class="club">
         YOKOSUKA RUCK CLUB
       </div>
 
-
       <div class="verified">
-
-        <span class="check">
-          ✓
-        </span>
-
-        VERIFIED FINISHER
-
+        ✓ VERIFIED FINISHER
       </div>
-
 
       <div class="name">
-
-        ${escapeHTML(finisher.NAME)}
-
+        ${escapeHTML(name)}
       </div>
-
 
       <div class="event">
-
-        ${escapeHTML(finisher.EVENT)}
-
+        ${escapeHTML(event)}
       </div>
-
 
       <div class="grid">
 
-
         <div class="box">
-
-          <div class="label">
-            DISTANCE
-          </div>
-
-          <div class="value">
-
-            ${escapeHTML(finisher.DISTANCE)}
-
-          </div>
-
+          <div class="label">DISTANCE</div>
+          <div class="value">${escapeHTML(distance)}</div>
         </div>
 
-
         <div class="box">
-
-          <div class="label">
-            RUCK WEIGHT
-          </div>
-
-          <div class="value">
-
-            ${escapeHTML(finisher.WEIGHT)}
-
-          </div>
-
+          <div class="label">RUCK WEIGHT</div>
+          <div class="value">${escapeHTML(weight)}</div>
         </div>
 
-
         <div class="box">
-
-          <div class="label">
-            FINISH TIME
-          </div>
-
-          <div class="value">
-
-            ${escapeHTML(finisher.TIME)}
-
-          </div>
-
+          <div class="label">FINISH TIME</div>
+          <div class="value">${escapeHTML(time)}</div>
         </div>
 
-
         <div class="box">
-
-          <div class="label">
-            COMPLETION DATE
-          </div>
-
-          <div class="value">
-
-            ${escapeHTML(finisher.DATE)}
-
-          </div>
-
+          <div class="label">COMPLETION DATE</div>
+          <div class="value">${escapeHTML(date)}</div>
         </div>
-
 
       </div>
-
 
       <div class="medal-id">
-
-        MEDAL ID<br><br>
-
-        ${escapeHTML(finisher.MEDAL_ID)}
-
+        MEDAL ID: ${escapeHTML(match[0])}
       </div>
-
 
       <div class="footer">
-
-        This digital finisher medal has been
-        verified by<br>
-
-        <strong>
-          Yokosuka Ruck Club
-        </strong>
-
+        This medal has been verified by<br>
+        Yokosuka Ruck Club.
       </div>
-
     `;
 
-  }
-
-
-  catch (error) {
-
+  } catch (error) {
     card.innerHTML = `
+      <div class="error">
+        Unable to verify this medal.
+      </div>
+    `;
+  }
+};
+
+function loadVerificationData() {
+  const script = document.createElement("script");
+
+  script.src =
+    "https://docs.google.com/spreadsheets/d/" +
+    SHEET_ID +
+    "/gviz/tq?gid=" +
+    SHEET_GID +
+    "&tqx=responseHandler:yrcVerificationCallback";
+
+  script.onerror = function() {
+    const card = document.getElementById("verificationCard");
+
+    if (card) {
+      card.innerHTML = `
+        <div class="error">
+          Unable to connect to the YRC verification database.
+        </div>
+      `;
+    }
+  };
+
+  document.head.appendChild(script);
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+  loadVerificationData();
+});
+
 
 </script>
 
