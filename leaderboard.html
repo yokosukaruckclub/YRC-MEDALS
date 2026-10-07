@@ -7,6 +7,7 @@
 <title>Yokosuka Ruck Club 10K Leaderboard</title>
 
 <style>
+
 body {
   margin: 0;
   padding: 20px;
@@ -93,7 +94,6 @@ table {
   min-width: 650px;
   border-collapse: collapse;
   background: #1b1b1b;
-  overflow: hidden;
 }
 
 th {
@@ -191,6 +191,7 @@ tr:last-child td {
   }
 
 }
+
 </style>
 </head>
 
@@ -276,9 +277,15 @@ Yokosuka Ruck Club • Verified Finisher Leaderboard
 
 <script>
 
+/*
+  YRC 10K LEADERBOARD
+
+  Data source:
+  GitHub raw data.json
+*/
+
 const dataUrl =
-  "https://yokosukaruckclub.github.io/YRC-MEDALS/data.json?x=" +
-  Date.now();
+  "https://raw.githubusercontent.com/yokosukaruckclub/YRC-MEDALS/main/data.json";
 
 const medalBaseUrl =
   "https://yokosukaruckclub.github.io/YRC-MEDALS/";
@@ -336,7 +343,11 @@ function parseTime(time) {
       Number.isFinite(minutes) &&
       Number.isFinite(seconds)
     ) {
-      return hours * 3600 + minutes * 60 + seconds;
+      return (
+        hours * 3600 +
+        minutes * 60 +
+        seconds
+      );
     }
   }
 
@@ -349,7 +360,10 @@ function parseTime(time) {
       Number.isFinite(minutes) &&
       Number.isFinite(seconds)
     ) {
-      return minutes * 60 + seconds;
+      return (
+        minutes * 60 +
+        seconds
+      );
     }
   }
 
@@ -364,7 +378,9 @@ function parseWeight(weight) {
       .replace(/[^\d.]/g, "")
   );
 
-  return Number.isFinite(number) ? number : 0;
+  return Number.isFinite(number)
+    ? number
+    : 0;
 }
 
 
@@ -375,7 +391,9 @@ function parseDistance(distance) {
       .replace(/[^\d.]/g, "")
   );
 
-  return Number.isFinite(number) ? number : 0;
+  return Number.isFinite(number)
+    ? number
+    : 0;
 }
 
 
@@ -387,15 +405,16 @@ function formatTime(time) {
     return "--:--:--";
   }
 
-  const hours = Math.floor(totalSeconds / 3600);
+  const hours =
+    Math.floor(totalSeconds / 3600);
 
-  const minutes = Math.floor(
-    (totalSeconds % 3600) / 60
-  );
+  const minutes =
+    Math.floor(
+      (totalSeconds % 3600) / 60
+    );
 
-  const seconds = Math.floor(
-    totalSeconds % 60
-  );
+  const seconds =
+    Math.floor(totalSeconds % 60);
 
   return (
     String(hours).padStart(2, "0") +
@@ -417,24 +436,27 @@ function getDivisionRecords() {
 
     return finishers.filter(function(record) {
 
-      const weight = parseWeight(record.weight);
+      const weight =
+        parseWeight(record.weight);
 
-      return weight >= 20 && weight <= 40;
+      return (
+        weight >= 20 &&
+        weight <= 40
+      );
 
     });
-
   }
 
   if (currentDivision === "heavy") {
 
     return finishers.filter(function(record) {
 
-      const weight = parseWeight(record.weight);
+      const weight =
+        parseWeight(record.weight);
 
       return weight > 40;
 
     });
-
   }
 
   return [];
@@ -444,16 +466,25 @@ function getDivisionRecords() {
 function renderLeaderboard() {
 
   const body =
-    document.getElementById("leaderboardBody");
+    document.getElementById(
+      "leaderboardBody"
+    );
 
-  const records = getDivisionRecords();
+  const records =
+    getDivisionRecords();
 
   records.sort(function(a, b) {
 
-    const timeA = parseTime(a.time);
-    const timeB = parseTime(b.time);
+    const timeA =
+      parseTime(a.time);
 
-    if (!Number.isFinite(timeA) && !Number.isFinite(timeB)) {
+    const timeB =
+      parseTime(b.time);
+
+    if (
+      !Number.isFinite(timeA) &&
+      !Number.isFinite(timeB)
+    ) {
       return 0;
     }
 
@@ -469,6 +500,7 @@ function renderLeaderboard() {
 
   });
 
+
   if (records.length === 0) {
 
     body.innerHTML =
@@ -481,12 +513,15 @@ function renderLeaderboard() {
     return;
   }
 
+
   body.innerHTML = "";
+
 
   records.forEach(function(record, index) {
 
     const medalId =
-      String(record.medalId || "").trim();
+      String(record.medalId || "")
+        .trim();
 
     const medalUrl =
       medalBaseUrl +
@@ -495,6 +530,7 @@ function renderLeaderboard() {
 
     const row =
       document.createElement("tr");
+
 
     const timeDisplay =
       formatTime(record.time);
@@ -505,50 +541,87 @@ function renderLeaderboard() {
     const distanceNumber =
       parseDistance(record.distance);
 
-    row.innerHTML =
-      "<td class='rank'>" +
-      (index + 1) +
-      "</td>" +
 
-      "<td>" +
-      getInitials(record.name) +
-      "</td>" +
+    const rankCell =
+      document.createElement("td");
 
-      "<td>" +
-      timeDisplay +
-      "</td>" +
+    rankCell.className = "rank";
+    rankCell.textContent =
+      index + 1;
 
-      "<td>" +
-      (
-        weightNumber > 0
+
+    const finisherCell =
+      document.createElement("td");
+
+    finisherCell.textContent =
+      getInitials(record.name);
+
+
+    const timeCell =
+      document.createElement("td");
+
+    timeCell.textContent =
+      timeDisplay;
+
+
+    const weightCell =
+      document.createElement("td");
+
+    weightCell.textContent =
+      weightNumber > 0
         ? weightNumber.toFixed(0) + " LB"
-        : "--"
-      ) +
-      "</td>" +
+        : "--";
 
-      "<td>" +
-      (
-        distanceNumber > 0
+
+    const distanceCell =
+      document.createElement("td");
+
+    distanceCell.textContent =
+      distanceNumber > 0
         ? distanceNumber.toFixed(2) + " KM"
-        : "--"
-      ) +
-      "</td>" +
+        : "--";
 
-      "<td>" +
 
-      (
-        medalId
-        ?
-        "<a class='medal-link' href='" +
-        medalUrl +
-        "' target='_blank'>VERIFY</a>"
-        :
-        "--"
-      )
+    const medalCell =
+      document.createElement("td");
 
-      +
 
-      "</td>";
+    if (medalId) {
+
+      const link =
+        document.createElement("a");
+
+      link.className =
+        "medal-link";
+
+      link.href =
+        medalUrl;
+
+      link.target =
+        "_blank";
+
+      link.rel =
+        "noopener noreferrer";
+
+      link.textContent =
+        "VERIFY";
+
+      medalCell.appendChild(link);
+
+    } else {
+
+      medalCell.textContent =
+        "--";
+
+    }
+
+
+    row.appendChild(rankCell);
+    row.appendChild(finisherCell);
+    row.appendChild(timeCell);
+    row.appendChild(weightCell);
+    row.appendChild(distanceCell);
+    row.appendChild(medalCell);
 
     body.appendChild(row);
 
@@ -557,19 +630,27 @@ function renderLeaderboard() {
 }
 
 
-function showDivision(division, button) {
+function showDivision(
+  division,
+  button
+) {
 
-  currentDivision = division;
+  currentDivision =
+    division;
 
   document
     .querySelectorAll(".tab")
     .forEach(function(tab) {
 
-      tab.classList.remove("active");
+      tab.classList.remove(
+        "active"
+      );
 
     });
 
-  button.classList.add("active");
+  button.classList.add(
+    "active"
+  );
 
   renderLeaderboard();
 
@@ -578,79 +659,237 @@ function showDivision(division, button) {
 
 function updateStats() {
 
-  document.getElementById("verifiedCount")
-    .textContent = finishers.length;
+  const count =
+    finishers.length;
 
-  if (finishers.length === 0) {
+  document
+    .getElementById(
+      "verifiedCount"
+    )
+    .textContent =
+    count;
 
-    document.getElementById("fastestTime")
-      .textContent = "--:--:--";
 
-    document.getElementById("heaviestRuck")
-      .textContent = "-- LB";
+  if (count === 0) {
+
+    document
+      .getElementById(
+        "fastestTime"
+      )
+      .textContent =
+      "--:--:--";
+
+    document
+      .getElementById(
+        "heaviestRuck"
+      )
+      .textContent =
+      "-- LB";
 
     return;
   }
 
+
   const validTimes =
     finishers
       .map(function(record) {
-        return parseTime(record.time);
+
+        return parseTime(
+          record.time
+        );
+
       })
       .filter(function(time) {
-        return Number.isFinite(time);
+
+        return Number.isFinite(
+          time
+        );
+
       });
+
 
   if (validTimes.length > 0) {
 
     const fastest =
-  Math.min.apply(null, validTimes);
+      Math.min.apply(
+        null,
+        validTimes
+      );
 
-const fastestHours =
-  Math.floor(fastest / 3600);
-
-const fastestMinutes =
-  Math.floor((fastest % 3600) / 60);
-
-const fastestSeconds =
-  Math.floor(fastest % 60);
-
-document.getElementById("fastestTime")
-  .textContent =
-  String(fastestHours).padStart(2, "0") +
-  ":" +
-  String(fastestMinutes).padStart(2, "0") +
-  ":" +
-  String(fastestSeconds).padStart(2, "0");
+    document
+      .getElementById(
+        "fastestTime"
+      )
+      .textContent =
+      formatTime(fastest);
 
   } else {
 
-    document.getElementById("fastestTime")
-      .textContent = "--:--:--";
+    document
+      .getElementById(
+        "fastestTime"
+      )
+      .textContent =
+      "--:--:--";
 
   }
+
 
   const weights =
     finishers
       .map(function(record) {
-        return parseWeight(record.weight);
+
+        return parseWeight(
+          record.weight
+        );
+
       })
       .filter(function(weight) {
+
         return weight > 0;
+
       });
+
 
   if (weights.length > 0) {
 
     const heaviest =
-      Math.max.apply(null, weights);
+      Math.max.apply(
+        null,
+        weights
+      );
 
-    document.getElementById("heaviestRuck")
+    document
+      .getElementById(
+        "heaviestRuck"
+      )
       .textContent =
-      heaviest.toFixed(0) + " LB";
+      heaviest.toFixed(0) +
+      " LB";
 
   } else {
 
-    document.getElementById("heaviestRuck")
-      .textContent = "-- LB";
+    document
+      .getElementById(
+        "heaviestRuck"
+      )
+      .textContent =
+      "-- LB";
 
   }
+
+}
+
+
+function loadLeaderboard() {
+
+  const body =
+    document.getElementById(
+      "leaderboardBody"
+    );
+
+  body.innerHTML =
+    '<tr>' +
+    '<td colspan="6" class="loading">' +
+    'Loading verified finishers...' +
+    '</td>' +
+    '</tr>';
+
+
+  fetch(
+    dataUrl +
+    "?v=" +
+    Date.now(),
+    {
+      cache: "no-store"
+    }
+  )
+
+  .then(function(response) {
+
+    if (!response.ok) {
+      throw new Error(
+        "HTTP " +
+        response.status
+      );
+    }
+
+    return response.json();
+
+  })
+
+  .then(function(records) {
+
+    if (!Array.isArray(records)) {
+      throw new Error(
+        "Invalid data format"
+      );
+    }
+
+
+    finishers =
+      records.filter(function(record) {
+
+        return String(
+          record.event || ""
+        )
+        .trim()
+        .toUpperCase() ===
+        "YRC 10K RUCK";
+
+      });
+
+
+    updateStats();
+    renderLeaderboard();
+
+  })
+
+  .catch(function(error) {
+
+    console.error(
+      "Leaderboard error:",
+      error
+    );
+
+
+    document
+      .getElementById(
+        "verifiedCount"
+      )
+      .textContent =
+      "0";
+
+    document
+      .getElementById(
+        "fastestTime"
+      )
+      .textContent =
+      "--:--:--";
+
+    document
+      .getElementById(
+        "heaviestRuck"
+      )
+      .textContent =
+      "-- LB";
+
+
+    body.innerHTML =
+      '<tr>' +
+      '<td colspan="6" class="error">' +
+      'Unable to load leaderboard data.' +
+      '</td>' +
+      '</tr>';
+
+  });
+
+}
+
+
+loadLeaderboard();
+
+</script>
+
+</body>
+</html>
