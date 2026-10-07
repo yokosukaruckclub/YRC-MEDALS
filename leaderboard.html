@@ -604,10 +604,24 @@ function updateStats() {
   if (validTimes.length > 0) {
 
     const fastest =
-      Math.min.apply(null, validTimes);
+  Math.min.apply(null, validTimes);
 
-    document.getElementById("fastestTime")
-      .textContent = formatTime(fastest);
+const fastestHours =
+  Math.floor(fastest / 3600);
+
+const fastestMinutes =
+  Math.floor((fastest % 3600) / 60);
+
+const fastestSeconds =
+  Math.floor(fastest % 60);
+
+document.getElementById("fastestTime")
+  .textContent =
+  String(fastestHours).padStart(2, "0") +
+  ":" +
+  String(fastestMinutes).padStart(2, "0") +
+  ":" +
+  String(fastestSeconds).padStart(2, "0");
 
   } else {
 
