@@ -43,5 +43,14 @@
     "weight": "20 LB",
     "time": "1:30:00",
     "date": "October 7, 2026"
+  },
+  {
+    "medalId": "YRC-10K-2026-0006",
+    "name": "Larry Bogus",
+    "event": "YRC 10K Ruck",
+    "distance": "11.00 KM",
+    "weight": "55 LB",
+    "time": "2:00:00",
+    "date": "October 7, 2026"
   }
 ]
