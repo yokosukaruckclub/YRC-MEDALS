@@ -1,65 +1,65 @@
-window.YRC_DATA = [
+[
   {
-    medalId: "YRC-10K-2026-0001",
-    name: "Howie Faber",
-    event: "YRC 10K Ruck",
-    distance: "10.24 KM",
-    weight: "20 LB",
-    time: "1:19:00",
-    date: "October 6, 2026"
+    "medalId": "YRC-10K-2026-0001",
+    "name": "Howie Faber",
+    "event": "YRC 10K Ruck",
+    "distance": "10.24 KM",
+    "weight": "20 LB",
+    "time": "1:19:00",
+    "date": "October 6, 2026"
   },
   {
-    medalId: "YRC-10K-2026-0002",
-    name: "Mutha Rucker",
-    event: "YRC 10K Ruck",
-    distance: "10.24 KM",
-    weight: "38 LB",
-    time: "1:30:00",
-    date: "October 6, 2026"
+    "medalId": "YRC-10K-2026-0002",
+    "name": "Mutha Rucker",
+    "event": "YRC 10K Ruck",
+    "distance": "10.24 KM",
+    "weight": "38 LB",
+    "time": "1:30:00",
+    "date": "October 6, 2026"
   },
   {
-    medalId: "YRC-10K-2026-0003",
-    name: "HOWARD FABER",
-    event: "YRC 10K Ruck",
-    distance: "10.24 KM",
-    weight: "20 LB",
-    time: "1:50:00",
-    date: "October 6, 2026"
+    "medalId": "YRC-10K-2026-0003",
+    "name": "HOWARD FABER",
+    "event": "YRC 10K Ruck",
+    "distance": "10.24 KM",
+    "weight": "20 LB",
+    "time": "1:50:00",
+    "date": "October 6, 2026"
   },
   {
-    medalId: "YRC-10K-2026-0004",
-    name: "MUTHA RUCKER",
-    event: "YRC 10K Ruck",
-    distance: "10.24 KM",
-    weight: "20 LB",
-    time: "1:30:00",
-    date: "October 6, 2026"
+    "medalId": "YRC-10K-2026-0004",
+    "name": "MUTHA RUCKER",
+    "event": "YRC 10K Ruck",
+    "distance": "10.24 KM",
+    "weight": "20 LB",
+    "time": "1:30:00",
+    "date": "October 6, 2026"
   },
   {
-    medalId: "YRC-10K-2026-0005",
-    name: "HOWIE FABER",
-    event: "YRC 10K Ruck",
-    distance: "10.50 KM",
-    weight: "30 LB",
-    time: "1:30:00",
-    date: "October 6, 2026"
+    "medalId": "YRC-10K-2026-0005",
+    "name": "HOWIE FABER",
+    "event": "YRC 10K Ruck",
+    "distance": "10.50 KM",
+    "weight": "30 LB",
+    "time": "1:30:00",
+    "date": "October 6, 2026"
   },
   {
-    medalId: "YRC-10K-2026-0006",
-    name: "HOLDEN FABER",
-    event: "YRC 10K Ruck",
-    distance: "10.50 KM",
-    weight: "20 LB",
-    time: "1:30:00",
-    date: "October 6, 2026"
+    "medalId": "YRC-10K-2026-0006",
+    "name": "HOLDEN FABER",
+    "event": "YRC 10K Ruck",
+    "distance": "10.50 KM",
+    "weight": "20 LB",
+    "time": "1:30:00",
+    "date": "October 6, 2026"
   },
   {
-    medalId: "YRC-10K-2026-0007",
-    name: "YRC QR TEST",
-    event: "YRC 10K Ruck",
-    distance: "10.24 KM",
-    weight: "20 LB",
-    time: "1:30:00",
-    date: "October 6, 2026"
+    "medalId": "YRC-10K-2026-0007",
+    "name": "YRC QR TEST",
+    "event": "YRC 10K Ruck",
+    "distance": "10.24 KM",
+    "weight": "20 LB",
+    "time": "1:30:00",
+    "date": "October 6, 2026"
   }
-];
+]
