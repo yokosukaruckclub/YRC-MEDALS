@@ -167,4 +167,453 @@ tr:last-child td {
 
   <div class="stat">
     <div class="stat-number" id="heaviestRuck">-- LB</div>
-    <div class="stat-label">HEAVIE
+    <div class="stat-label">HEAVIEST RUCK</div>
+  </div>
+
+</div>
+
+<div class="tabs">
+
+  <button class="tab active" onclick="showDivision('overall', this)">
+    OVERALL
+  </button>
+
+  <button class="tab" onclick="showDivision('standard', this)">
+    20 LB
+  </button>
+
+  <button class="tab" onclick="showDivision('heavy', this)">
+    HEAVY
+  </button>
+
+</div>
+
+<div class="table-wrap">
+
+<table>
+
+<thead>
+<tr>
+  <th>RANK</th>
+  <th>FINISHER</th>
+  <th>TIME</th>
+  <th>WEIGHT</th>
+  <th>DISTANCE</th>
+  <th>MEDAL</th>
+</tr>
+</thead>
+
+<tbody id="leaderboardBody">
+
+<tr>
+  <td colspan="6" class="loading">
+    Loading verified finishers...
+  </td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<div class="footer">
+Yokosuka Ruck Club • Verified Finisher Leaderboard
+</div>
+
+</div>
+
+<script>
+
+const dataUrl =
+  "https://yokosukaruckclub.github.io/YRC-MEDALS/data.json?x=" +
+  Date.now();
+
+const medalBaseUrl =
+  "https://yokosukaruckclub.github.io/YRC-MEDALS/";
+
+let finishers = [];
+let currentDivision = "overall";
+
+
+function getInitials(name) {
+
+  const parts = String(name || "")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean);
+
+  if (parts.length === 0) {
+    return "--";
+  }
+
+  if (parts.length === 1) {
+    return parts[0]
+      .substring(0, 2)
+      .toUpperCase();
+  }
+
+  return (
+    parts[0].charAt(0) +
+    parts[parts.length - 1].charAt(0)
+  ).toUpperCase();
+}
+
+
+function parseTime(time) {
+
+  const value = String(time || "").trim();
+
+  if (!value) {
+    return NaN;
+  }
+
+  const parts = value.split(":");
+
+  if (parts.length === 3) {
+
+    const hours = Number(parts[0]);
+    const minutes = Number(parts[1]);
+    const seconds = Number(parts[2]);
+
+    if (
+      Number.isFinite(hours) &&
+      Number.isFinite(minutes) &&
+      Number.isFinite(seconds)
+    ) {
+      return hours * 3600 + minutes * 60 + seconds;
+    }
+  }
+
+  if (parts.length === 2) {
+
+    const minutes = Number(parts[0]);
+    const seconds = Number(parts[1]);
+
+    if (
+      Number.isFinite(minutes) &&
+      Number.isFinite(seconds)
+    ) {
+      return minutes * 60 + seconds;
+    }
+  }
+
+  return NaN;
+}
+
+
+function parseWeight(weight) {
+
+  const number = parseFloat(
+    String(weight || "")
+      .replace(/[^\d.]/g, "")
+  );
+
+  return Number.isFinite(number) ? number : 0;
+}
+
+
+function parseDistance(distance) {
+
+  const number = parseFloat(
+    String(distance || "")
+      .replace(/[^\d.]/g, "")
+  );
+
+  return Number.isFinite(number) ? number : 0;
+}
+
+
+function formatTime(time) {
+
+  const totalSeconds = parseTime(time);
+
+  if (!Number.isFinite(totalSeconds)) {
+    return String(time || "--");
+  }
+
+  const hours = Math.floor(totalSeconds / 3600);
+
+  const minutes = Math.floor(
+    (totalSeconds % 3600) / 60
+  );
+
+  const seconds = Math.floor(
+    totalSeconds % 60
+  );
+
+  return (
+    String(hours).padStart(2, "0") +
+    ":" +
+    String(minutes).padStart(2, "0") +
+    ":" +
+    String(seconds).padStart(2, "0")
+  );
+}
+
+
+function getDivisionRecords() {
+
+  if (currentDivision === "overall") {
+    return finishers.slice();
+  }
+
+  if (currentDivision === "standard") {
+
+    return finishers.filter(function(record) {
+
+      const weight = parseWeight(record.weight);
+
+      return weight >= 20 && weight <= 40;
+
+    });
+
+  }
+
+  if (currentDivision === "heavy") {
+
+    return finishers.filter(function(record) {
+
+      const weight = parseWeight(record.weight);
+
+      return weight > 40;
+
+    });
+
+  }
+
+  return [];
+}
+
+
+function renderLeaderboard() {
+
+  const body =
+    document.getElementById("leaderboardBody");
+
+  const records = getDivisionRecords();
+
+  records.sort(function(a, b) {
+
+    const timeA = parseTime(a.time);
+    const timeB = parseTime(b.time);
+
+    if (!Number.isFinite(timeA)) return 1;
+    if (!Number.isFinite(timeB)) return -1;
+
+    return timeA - timeB;
+
+  });
+
+  if (records.length === 0) {
+
+    body.innerHTML =
+      '<tr>' +
+      '<td colspan="6" class="loading">' +
+      'No verified finishers in this division yet.' +
+      '</td>' +
+      '</tr>';
+
+    return;
+  }
+
+  body.innerHTML = "";
+
+  records.forEach(function(record, index) {
+
+    const medalId =
+      String(record.medalId || "").trim();
+
+    const medalUrl =
+      medalBaseUrl +
+      "?id=" +
+      encodeURIComponent(medalId);
+
+    const row =
+      document.createElement("tr");
+
+    row.innerHTML =
+      "<td class='rank'>" +
+      (index + 1) +
+      "</td>" +
+
+      "<td>" +
+      getInitials(record.name) +
+      "</td>" +
+
+      "<td>" +
+      formatTime(record.time) +
+      "</td>" +
+
+      "<td>" +
+      String(record.weight || "--") +
+      "</td>" +
+
+      "<td>" +
+      String(record.distance || "--") +
+      "</td>" +
+
+      "<td>" +
+
+      (
+        medalId
+        ?
+        "<a class='medal-link' href='" +
+        medalUrl +
+        "' target='_blank'>VERIFY</a>"
+        :
+        "--"
+      )
+
+      +
+
+      "</td>";
+
+    body.appendChild(row);
+
+  });
+
+}
+
+
+function showDivision(division, button) {
+
+  currentDivision = division;
+
+  document
+    .querySelectorAll(".tab")
+    .forEach(function(tab) {
+
+      tab.classList.remove("active");
+
+    });
+
+  button.classList.add("active");
+
+  renderLeaderboard();
+
+}
+
+
+function updateStats() {
+
+  document.getElementById("verifiedCount")
+    .textContent = finishers.length;
+
+  if (finishers.length === 0) {
+
+    document.getElementById("fastestTime")
+      .textContent = "--:--:--";
+
+    document.getElementById("heaviestRuck")
+      .textContent = "-- LB";
+
+    return;
+  }
+
+  const validTimes =
+    finishers
+      .map(function(record) {
+        return parseTime(record.time);
+      })
+      .filter(function(time) {
+        return Number.isFinite(time);
+      });
+
+  if (validTimes.length > 0) {
+
+    const fastest =
+      Math.min.apply(null, validTimes);
+
+    document.getElementById("fastestTime")
+      .textContent = formatTime(
+        fastest
+      );
+
+  }
+
+  const weights =
+    finishers
+      .map(function(record) {
+        return parseWeight(record.weight);
+      })
+      .filter(function(weight) {
+        return weight > 0;
+      });
+
+  if (weights.length > 0) {
+
+    const heaviest =
+      Math.max.apply(null, weights);
+
+    document.getElementById("heaviestRuck")
+      .textContent =
+      heaviest.toFixed(0) + " LB";
+
+  }
+
+}
+
+
+function loadLeaderboard() {
+
+  const body =
+    document.getElementById("leaderboardBody");
+
+  fetch(dataUrl)
+
+    .then(function(response) {
+
+      if (!response.ok) {
+        throw new Error(
+          "Data file could not be loaded."
+        );
+      }
+
+      return response.text();
+
+    })
+
+    .then(function(text) {
+
+      const records =
+        JSON.parse(text);
+
+      finishers =
+        records.filter(function(record) {
+
+          return String(record.event || "")
+            .trim()
+            .toUpperCase() ===
+            "YRC 10K RUCK";
+
+        });
+
+      updateStats();
+
+      renderLeaderboard();
+
+    })
+
+    .catch(function(error) {
+
+      console.error(error);
+
+      body.innerHTML =
+        '<tr>' +
+        '<td colspan="6" class="error">' +
+        'Unable to load leaderboard data.' +
+        '</td>' +
+        '</tr>';
+
+    });
+
+}
+
+
+loadLeaderboard();
+
+</script>
+
+</body>
+</html>
