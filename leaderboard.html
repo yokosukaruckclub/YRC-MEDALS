@@ -22,7 +22,7 @@ body {
 }
 
 h1 {
-  margin-bottom: 5px;
+  margin: 0 0 5px;
   font-size: 32px;
 }
 
@@ -74,6 +74,7 @@ h1 {
   padding: 12px 22px;
   cursor: pointer;
   font-weight: bold;
+  font-size: 14px;
 }
 
 .tab.active {
@@ -81,14 +82,17 @@ h1 {
 }
 
 .table-wrap {
+  width: 100%;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 10px;
 }
 
 table {
   width: 100%;
+  min-width: 650px;
   border-collapse: collapse;
   background: #1b1b1b;
-  border-radius: 10px;
   overflow: hidden;
 }
 
@@ -96,12 +100,14 @@ th {
   background: #333;
   padding: 12px 8px;
   font-size: 13px;
+  white-space: nowrap;
 }
 
 td {
   padding: 12px 8px;
   border-bottom: 1px solid #333;
   font-size: 14px;
+  white-space: nowrap;
 }
 
 tr:last-child td {
@@ -139,6 +145,51 @@ tr:last-child td {
   margin-top: 30px;
   color: #777;
   font-size: 12px;
+}
+
+@media (max-width: 600px) {
+
+  body {
+    padding: 15px 10px;
+  }
+
+  h1 {
+    font-size: 25px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+
+  .stats {
+    gap: 8px;
+  }
+
+  .stat {
+    min-width: 90px;
+    padding: 12px 10px;
+    flex: 1;
+  }
+
+  .stat-number {
+    font-size: 21px;
+  }
+
+  .stat-label {
+    font-size: 10px;
+  }
+
+  .tab {
+    padding: 10px 14px;
+    font-size: 12px;
+  }
+
+  th,
+  td {
+    padding: 10px 8px;
+  }
+
 }
 </style>
 </head>
@@ -262,6 +313,10 @@ function getInitials(name) {
 
 function parseTime(time) {
 
+  if (typeof time === "number") {
+    return Number.isFinite(time) ? time : NaN;
+  }
+
   const value = String(time || "").trim();
 
   if (!value) {
@@ -329,7 +384,7 @@ function formatTime(time) {
   const totalSeconds = parseTime(time);
 
   if (!Number.isFinite(totalSeconds)) {
-    return String(time || "--");
+    return "--:--:--";
   }
 
   const hours = Math.floor(totalSeconds / 3600);
@@ -398,8 +453,17 @@ function renderLeaderboard() {
     const timeA = parseTime(a.time);
     const timeB = parseTime(b.time);
 
-    if (!Number.isFinite(timeA)) return 1;
-    if (!Number.isFinite(timeB)) return -1;
+    if (!Number.isFinite(timeA) && !Number.isFinite(timeB)) {
+      return 0;
+    }
+
+    if (!Number.isFinite(timeA)) {
+      return 1;
+    }
+
+    if (!Number.isFinite(timeB)) {
+      return -1;
+    }
 
     return timeA - timeB;
 
@@ -432,6 +496,15 @@ function renderLeaderboard() {
     const row =
       document.createElement("tr");
 
+    const timeDisplay =
+      formatTime(record.time);
+
+    const weightNumber =
+      parseWeight(record.weight);
+
+    const distanceNumber =
+      parseDistance(record.distance);
+
     row.innerHTML =
       "<td class='rank'>" +
       (index + 1) +
@@ -442,15 +515,23 @@ function renderLeaderboard() {
       "</td>" +
 
       "<td>" +
-      formatTime(record.time) +
+      timeDisplay +
       "</td>" +
 
       "<td>" +
-      String(record.weight || "--") +
+      (
+        weightNumber > 0
+        ? weightNumber.toFixed(0) + " LB"
+        : "--"
+      ) +
       "</td>" +
 
       "<td>" +
-      String(record.distance || "--") +
+      (
+        distanceNumber > 0
+        ? distanceNumber.toFixed(2) + " KM"
+        : "--"
+      ) +
       "</td>" +
 
       "<td>" +
@@ -526,9 +607,12 @@ function updateStats() {
       Math.min.apply(null, validTimes);
 
     document.getElementById("fastestTime")
-      .textContent = formatTime(
-        fastest
-      );
+      .textContent = formatTime(fastest);
+
+  } else {
+
+    document.getElementById("fastestTime")
+      .textContent = "--:--:--";
 
   }
 
@@ -550,70 +634,9 @@ function updateStats() {
       .textContent =
       heaviest.toFixed(0) + " LB";
 
+  } else {
+
+    document.getElementById("heaviestRuck")
+      .textContent = "-- LB";
+
   }
-
-}
-
-
-function loadLeaderboard() {
-
-  const body =
-    document.getElementById("leaderboardBody");
-
-  fetch(dataUrl)
-
-    .then(function(response) {
-
-      if (!response.ok) {
-        throw new Error(
-          "Data file could not be loaded."
-        );
-      }
-
-      return response.text();
-
-    })
-
-    .then(function(text) {
-
-      const records =
-        JSON.parse(text);
-
-      finishers =
-        records.filter(function(record) {
-
-          return String(record.event || "")
-            .trim()
-            .toUpperCase() ===
-            "YRC 10K RUCK";
-
-        });
-
-      updateStats();
-
-      renderLeaderboard();
-
-    })
-
-    .catch(function(error) {
-
-      console.error(error);
-
-      body.innerHTML =
-        '<tr>' +
-        '<td colspan="6" class="error">' +
-        'Unable to load leaderboard data.' +
-        '</td>' +
-        '</tr>';
-
-    });
-
-}
-
-
-loadLeaderboard();
-
-</script>
-
-</body>
-</html>
