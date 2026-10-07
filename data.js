@@ -37,7 +37,7 @@ window.YRC_DATA = [
   },
   {
     "medalId": "YRC-10K-2026-0005",
-    "name": "",
+    "name": "LAUREN FABER",
     "event": "YRC 10K Ruck",
     "distance": "10.24 KM",
     "weight": "20 LB",
