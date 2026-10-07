@@ -34,5 +34,14 @@ window.YRC_DATA = [
     "weight": "20 LB",
     "time": "1:34:00",
     "date": "October 3, 2026"
+  },
+  {
+    "medalId": "YRC-10K-2026-0005",
+    "name": "",
+    "event": "YRC 10K Ruck",
+    "distance": "10.24 KM",
+    "weight": "20 LB",
+    "time": "1:30:00",
+    "date": "October 7, 2026"
   }
 ];
