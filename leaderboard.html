@@ -7,154 +7,139 @@
 <title>Yokosuka Ruck Club 10K Leaderboard</title>
 
 <style>
-  body {
-    margin: 0;
-    padding: 20px;
-    background: #111;
-    color: #fff;
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: center;
-  }
+body {
+  margin: 0;
+  padding: 20px;
+  background: #111;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+}
 
-  .container {
-    max-width: 900px;
-    margin: auto;
-  }
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
 
-  h1 {
-    margin-bottom: 5px;
-    font-size: 32px;
-  }
+h1 {
+  margin-bottom: 5px;
+  font-size: 32px;
+}
 
-  .subtitle {
-    color: #bbb;
-    margin-bottom: 25px;
-  }
+.subtitle {
+  color: #bbb;
+  margin-bottom: 25px;
+}
 
-  .stats {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-bottom: 25px;
-  }
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+}
 
-  .stat {
-    background: #222;
-    border-radius: 10px;
-    padding: 12px 18px;
-    min-width: 120px;
-  }
+.stat {
+  background: #222;
+  border: 1px solid #444;
+  border-radius: 10px;
+  padding: 15px 25px;
+  min-width: 160px;
+}
 
-  .stat-number {
-    font-size: 22px;
-    font-weight: bold;
-  }
+.stat-number {
+  font-size: 28px;
+  font-weight: bold;
+}
 
-  .stat-label {
-    font-size: 11px;
-    color: #aaa;
-    margin-top: 4px;
-  }
+.stat-label {
+  color: #aaa;
+  font-size: 13px;
+  margin-top: 5px;
+}
 
-  .tabs {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-  }
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
 
-  .tab {
-    background: #333;
-    color: #fff;
-    border: none;
-    padding: 12px 22px;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-  }
+.tab {
+  background: #333;
+  color: #fff;
+  border: 1px solid #555;
+  border-radius: 8px;
+  padding: 12px 22px;
+  cursor: pointer;
+  font-weight: bold;
+}
 
-  .tab.active {
-    background: #b08d3c;
-    color: #111;
-  }
+.tab.active {
+  background: #777;
+}
 
-  .table-wrap {
-    overflow-x: auto;
-  }
+.table-wrap {
+  overflow-x: auto;
+}
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    background: #1b1b1b;
-    border-radius: 10px;
-    overflow: hidden;
-  }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #1b1b1b;
+  border-radius: 10px;
+  overflow: hidden;
+}
 
-  th {
-    background: #292929;
-    color: #ddd;
-    padding: 12px 8px;
-    font-size: 13px;
-  }
+th {
+  background: #333;
+  padding: 12px 8px;
+  font-size: 13px;
+}
 
-  td {
-    padding: 14px 8px;
-    border-top: 1px solid #333;
-    font-size: 14px;
-  }
+td {
+  padding: 12px 8px;
+  border-bottom: 1px solid #333;
+  font-size: 14px;
+}
 
-  tr:first-child td {
-    border-top: none;
-  }
+tr:last-child td {
+  border-bottom: none;
+}
 
-  .rank {
-    font-weight: bold;
-    font-size: 18px;
-  }
+.rank {
+  font-weight: bold;
+}
 
-  .medal-link {
-    display: inline-block;
-    background: #b08d3c;
-    color: #111;
-    text-decoration: none;
-    padding: 7px 10px;
-    border-radius: 6px;
-    font-size: 12px;
-    font-weight: bold;
-  }
+.medal-link {
+  color: #fff;
+  text-decoration: none;
+  background: #555;
+  padding: 6px 10px;
+  border-radius: 6px;
+  display: inline-block;
+}
 
-  .empty {
-    padding: 30px;
-    color: #aaa;
-  }
+.medal-link:hover {
+  background: #777;
+}
 
-  .footer {
-    margin-top: 30px;
-    color: #777;
-    font-size: 12px;
-  }
+.loading {
+  color: #aaa;
+  padding: 30px;
+}
 
-  @media (max-width: 600px) {
-    body {
-      padding: 12px;
-    }
+.error {
+  color: #ff7777;
+  padding: 30px;
+}
 
-    h1 {
-      font-size: 25px;
-    }
-
-    th,
-    td {
-      padding: 10px 6px;
-      font-size: 12px;
-    }
-
-    .medal-link {
-      padding: 6px 8px;
-    }
-  }
+.footer {
+  margin-top: 30px;
+  color: #777;
+  font-size: 12px;
+}
 </style>
 </head>
 
@@ -162,158 +147,24 @@
 
 <div class="container">
 
-  <h1>🏆 YOKOSUKA RUCK CLUB</h1>
+<h1>YOKOSUKA RUCK CLUB</h1>
 
-  <div class="subtitle">
-    10K RUCK • VERIFIED LEADERBOARD
-  </div>
-
-  <div class="stats">
-    <div class="stat">
-      <div class="stat-number" id="finisherCount">0</div>
-      <div class="stat-label">VERIFIED FINISHERS</div>
-    </div>
-
-    <div class="stat">
-      <div class="stat-number" id="fastestTime">--:--:--</div>
-      <div class="stat-label">FASTEST TIME</div>
-    </div>
-
-    <div class="stat">
-      <div class="stat-number" id="heaviestWeight">-- LB</div>
-      <div class="stat-label">HEAVIEST RUCK</div>
-    </div>
-  </div>
-
-  <div class="tabs">
-    <button class="tab active" onclick="showDivision('overall', this)">
-      🏆 OVERALL
-    </button>
-
-    <button class="tab" onclick="showDivision('standard', this)">
-      🎒 20 LB
-    </button>
-
-    <button class="tab" onclick="showDivision('heavy', this)">
-      💪 HEAVY
-    </button>
-  </div>
-
-  <div class="table-wrap">
-    <table>
-      <thead>
-        <tr>
-          <th>RANK</th>
-          <th>FINISHER</th>
-          <th>TIME</th>
-          <th>WEIGHT</th>
-          <th>DISTANCE</th>
-          <th>MEDAL</th>
-        </tr>
-      </thead>
-
-      <tbody id="leaderboardBody">
-        <tr>
-          <td colspan="6" class="empty">
-            Loading verified finishers...
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="footer">
-    YRC 10K Ruck • 10.00 KM minimum • 20 LB minimum •
-    2:00:00 maximum
-  </div>
-
+<div class="subtitle">
+10K RUCK LEADERBOARD
 </div>
 
-<script>
+<div class="stats">
 
-const dataUrl =
-  "https://yokosukaruckclub.github.io/YRC-MEDALS/data.json?x=" +
-  Date.now();
+  <div class="stat">
+    <div class="stat-number" id="verifiedCount">0</div>
+    <div class="stat-label">VERIFIED FINISHERS</div>
+  </div>
 
-const medalBaseUrl =
-  "https://yokosukaruckclub.github.io/YRC-MEDALS/";
+  <div class="stat">
+    <div class="stat-number" id="fastestTime">--:--:--</div>
+    <div class="stat-label">FASTEST TIME</div>
+  </div>
 
-let finishers = [];
-let currentDivision = "overall";
-
-
-function getInitials(name) {
-
-  const parts = String(name || "")
-    .trim()
-    .split(/\s+/)
-    .filter(Boolean);
-
-  if (parts.length === 0) {
-    return "—";
-  }
-
-  if (parts.length === 1) {
-    return parts[0].substring(0, 2).toUpperCase();
-  }
-
-  return (
-    parts[0].charAt(0) +
-    parts[parts.length - 1].charAt(0)
-  ).toUpperCase();
-}
-
-
-function parseTime(time) {
-
-  const parts = String(time || "")
-    .trim()
-    .split(":")
-    .map(Number);
-
-  if (parts.some(isNaN)) {
-    return Infinity;
-  }
-
-  if (parts.length === 3) {
-    return (
-      parts[0] * 3600 +
-      parts[1] * 60 +
-      parts[2]
-    );
-  }
-
-  if (parts.length === 2) {
-    return (
-      parts[0] * 60 +
-      parts[1]
-    );
-  }
-
-  return Infinity;
-}
-
-
-function parseWeight(weight) {
-
-  const number = parseFloat(
-    String(weight || "").replace(/[^\d.]/g, "")
-  );
-
-  return isNaN(number) ? 0 : number;
-}
-
-
-function formatTime(time) {
-
-  const totalSeconds = parseTime(time);
-
-  if (!isFinite(totalSeconds)) {
-    return String(time || "--");
-  }
-
-  const hours = Math.floor(totalSeconds / 3600);
-  const minutes = Math.floor(
-    (totalSeconds % 3600) / 60
- 
-
+  <div class="stat">
+    <div class="stat-number" id="heaviestRuck">-- LB</div>
+    <div class="stat-label">HEAVIE
