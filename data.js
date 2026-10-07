@@ -1,1 +1,38 @@
-window.YRC_DATA = [];
+window.YRC_DATA = [
+  {
+    "medalId": "YRC-10K-2026-0001",
+    "name": "HOWIE FABER",
+    "event": "YRC 10K Ruck",
+    "distance": "10.24 KM",
+    "weight": "20 LB",
+    "time": "1:30:00",
+    "date": "October 6, 2026"
+  },
+  {
+    "medalId": "YRC-10K-2026-0002",
+    "name": "Howie Faber",
+    "event": "YRC 10K Ruck",
+    "distance": "10.25 KM",
+    "weight": "25 LB",
+    "time": "1:30:00",
+    "date": "October 6, 2026"
+  },
+  {
+    "medalId": "YRC-10K-2026-0003",
+    "name": "Noah Adams",
+    "event": "YRC 10K Ruck",
+    "distance": "10.24 KM",
+    "weight": "20 LB",
+    "time": "1:35:00",
+    "date": "October 6, 2026"
+  },
+  {
+    "medalId": "YRC-10K-2026-0004",
+    "name": "Sheryl Faber",
+    "event": "YRC 10K Ruck",
+    "distance": "10.24 KM",
+    "weight": "20 LB",
+    "time": "1:34:00",
+    "date": "October 3, 2026"
+  }
+];
