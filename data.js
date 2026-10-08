@@ -1,6 +1,6 @@
 window.YRC_DATA = [
   {
-    "medalId": "YRC-10K-2026-0001",
+    "medalId": "YRC-5K-2026-0001",
     "name": "HOWARD FABER",
     "event": "YRC 5K RUCK",
     "distance": "5.00 KM",
