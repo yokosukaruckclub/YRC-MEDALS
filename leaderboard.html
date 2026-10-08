@@ -662,7 +662,14 @@ function renderLeaderboard() {
 
 function showEvent(eventName, button) {
   currentEvent = eventName;
+const subtitle = document.querySelector(".subtitle");
 
+subtitle.textContent =
+  currentEvent === "all"
+    ? "RUCK LEADERBOARD"
+    : currentEvent === "YRC 5K RUCK"
+      ? "5K RUCK LEADERBOARD"
+      : "10K RUCK LEADERBOARD";
   document.querySelectorAll(".event-tab").forEach(function(tab) {
     tab.classList.remove("active");
   });
