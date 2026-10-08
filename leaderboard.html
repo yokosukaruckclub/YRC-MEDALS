@@ -225,7 +225,11 @@ tr:last-child td {
 </div>
 
 <div class="tabs">
-
+<div id="eventSelector" style="margin-bottom: 15px;">
+  <button class="event-tab active" onclick="showEvent('all', this)">ALL EVENTS</button>
+  <button class="event-tab" onclick="showEvent('YRC 5K RUCK', this)">YRC 5K</button>
+  <button class="event-tab" onclick="showEvent('YRC 10K RUCK', this)">YRC 10K</button>
+</div>
   <button class="tab active" onclick="showDivision('overall', this)">
     OVERALL
   </button>
@@ -292,7 +296,7 @@ const medalBaseUrl =
 
 let finishers = [];
 let currentDivision = "overall";
-
+let currentEvent = "all";
 
 function getInitials(name) {
 
@@ -630,7 +634,20 @@ function renderLeaderboard() {
 }
 
 
-function showDivision(
+function showEvent(eventName, button) {
+  currentEvent = eventName;
+
+  document.querySelectorAll(".event-tab").forEach(function(tab) {
+    tab.classList.remove("active");
+  });
+
+  button.classList.add("active");
+
+  updateStats();
+  renderLeaderboard();
+}
+
+  function showDivision(
   division,
   button
 ) {
@@ -830,12 +847,10 @@ function loadLeaderboard() {
     finishers =
       records.filter(function(record) {
 
-        return String(
-          record.event || ""
-        )
-        .trim()
-        .toUpperCase() ===
-        "YRC 10K RUCK";
+        return currentEvent === "all" ||
+  String(record.event || "")
+    .trim()
+    .toUpperCase() === currentEvent;
 
       });
 
