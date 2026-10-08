@@ -446,14 +446,23 @@ function formatTime(time) {
 
 
 function getDivisionRecords() {
-
+const eventRecords =
+    currentEvent === "all"
+      ? finishers.slice()
+      : finishers.filter(function(record) {
+          return String(record.event || "")
+            .trim()
+            .toUpperCase() === currentEvent;
+        });
   if (currentDivision === "overall") {
-    return finishers.slice();
+  return eventRecords.slice();
+
   }
 
   if (currentDivision === "standard") {
 
-    return finishers.filter(function(record) {
+    return eventRecords.filter(function(record) {
+
 
       const weight =
         parseWeight(record.weight);
@@ -468,7 +477,7 @@ function getDivisionRecords() {
 
   if (currentDivision === "heavy") {
 
-    return finishers.filter(function(record) {
+  return eventRecords.filter(function(record) {
 
       const weight =
         parseWeight(record.weight);
