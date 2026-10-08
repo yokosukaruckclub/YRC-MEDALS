@@ -9,7 +9,7 @@ window.YRC_DATA = [
     "date": "October 8, 2026"
   },
   {
-    "medalId": "YRC-10K-2026-0002",
+    "medalId": "YRC-10K-2026-0001",
     "name": "Howard Faber",
     "event": "YRC 10K RUCK",
     "distance": "10.00 KM",
