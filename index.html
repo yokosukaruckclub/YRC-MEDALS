@@ -140,6 +140,32 @@ function escapeHtml(value) {
     .replace(/'/g, "&#039;");
 }
 
+
+/* Public name format: First Initial + Last Name */
+
+function publicName(name) {
+
+  const parts = String(name || "")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean);
+
+  if (parts.length === 0) {
+    return "--";
+  }
+
+  if (parts.length === 1) {
+    return parts[0];
+  }
+
+  return (
+    parts[0].charAt(0).toUpperCase() +
+    ". " +
+    parts[parts.length - 1]
+  );
+}
+
+
 function showNotFound() {
   document.getElementById("verificationCard").innerHTML = `
     <div class="header">
@@ -156,6 +182,7 @@ function showNotFound() {
     </div>
   `;
 }
+
 
 function showError() {
   document.getElementById("verificationCard").innerHTML = `
@@ -174,6 +201,7 @@ function showError() {
   `;
 }
 
+
 function showMedal(finisher) {
 
   document.getElementById("verificationCard").innerHTML = `
@@ -186,7 +214,7 @@ function showMedal(finisher) {
     <div class="content">
 
       <div class="name">
-        ${escapeHtml(finisher.name)}
+        ${escapeHtml(publicName(finisher.name))}
       </div>
 
       <div class="event">
@@ -238,6 +266,7 @@ function showMedal(finisher) {
     </div>
   `;
 }
+
 
 function loadVerification() {
 
