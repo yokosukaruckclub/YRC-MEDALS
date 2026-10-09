@@ -1,7 +1,7 @@
 window.YRC_DATA = [
   {
     "medalId": "YRC-10K-2026-0001",
-    "name": "HOLY COW",
+    "name": "H. COW",
     "event": "YRC 10K RUCK",
     "distance": "10.00 KM",
     "weight": "35 LB",
