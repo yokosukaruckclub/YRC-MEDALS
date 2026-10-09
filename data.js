@@ -1,38 +1,11 @@
 window.YRC_DATA = [
   {
-    "medalId": "YRC-5K-2026-0001",
-    "name": "HOWARD FABER",
-    "event": "YRC 5K RUCK",
-    "distance": "5.00 KM",
-    "weight": "20 LB",
-    "time": "0:50:00",
-    "date": "October 8, 2026"
-  },
-  {
     "medalId": "YRC-10K-2026-0001",
-    "name": "Howard Faber",
+    "name": "HOLY COW",
     "event": "YRC 10K RUCK",
     "distance": "10.00 KM",
-    "weight": "20 LB",
-    "time": "1:30:00",
-    "date": "October 8, 2026"
-  },
-  {
-    "medalId": "YRC-5K-2026-0002",
-    "name": "HOLDEN FABER",
-    "event": "YRC 5K RUCK",
-    "distance": "5.00 KM",
-    "weight": "20 LB",
-    "time": "0:50:00",
-    "date": "October 8, 2026"
-  },
-  {
-    "medalId": "YRC-10K-2026-0002",
-    "name": "LARRY DAVID",
-    "event": "YRC 10K RUCK",
-    "distance": "10.00 KM",
-    "weight": "41 LB",
-    "time": "1:50:00",
-    "date": "October 8, 2026"
+    "weight": "35 LB",
+    "time": "1:33:25",
+    "date": "October 9, 2026"
   }
 ];
