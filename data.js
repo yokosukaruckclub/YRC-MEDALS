@@ -16,5 +16,14 @@ window.YRC_DATA = [
     "weight": "36 LB",
     "time": "3:07:30",
     "date": "October 24, 2026"
+  },
+  {
+    "medalId": "YRC-25K-2026-0001",
+    "name": "H. Faber",
+    "event": "YRC 25K RUCK",
+    "distance": "25.00 KM",
+    "weight": "37 LB",
+    "time": "3:44:40",
+    "date": "November 1, 2026"
   }
 ];
