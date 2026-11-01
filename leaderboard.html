@@ -668,12 +668,14 @@ function showEvent(eventName, button) {
   currentEvent = eventName;
 const subtitle = document.querySelector(".subtitle");
 
+const distance = currentEvent.match(/\b\d+K\b/i);
+
 subtitle.textContent =
-  currentEvent === "all"
-    ? "RUCK LEADERBOARD"
-    : currentEvent === "YRC 5K RUCK"
-      ? "5K RUCK LEADERBOARD"
-      : "10K RUCK LEADERBOARD";
+    currentEvent === "all"
+      ? "RUCK LEADERBOARD"
+      : distance
+        ? distance[0].toUpperCase() + " RUCK LEADERBOARD"
+        : "RUCK LEADERBOARD";
   document.querySelectorAll(".event-tab").forEach(function(tab) {
     tab.classList.remove("active");
   });
